@@ -1,5 +1,5 @@
 import { OriginalFile } from "../../models/OriginalFile";
-import { Error } from "./index";
+import { BaseState } from "./index";
 export interface ConvertingResult {
   documents: string[];
   messages: string[];
@@ -24,4 +24,4 @@ export interface ConvertingTask {
   createdAt: Date;
 }
 
-export type ConvertingState = ConvertingTaskList & Error;
+export type ConvertingState = ConvertingTaskList & BaseState;

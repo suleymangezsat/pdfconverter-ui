@@ -6,7 +6,8 @@ export interface RootState {
   uploading: UploadingState;
 }
 
-export type Error = {
+export type BaseState = {
   loading: boolean;
-  error: string | null;
+  error: boolean;
+  initialized?: boolean;
 };

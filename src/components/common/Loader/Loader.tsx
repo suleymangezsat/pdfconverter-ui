@@ -7,7 +7,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import React, { memo, ReactElement } from "react";
-import { Error as ErrorState } from "../../../store/state";
+import { BaseState } from "../../../store/state";
 import { Error } from "../Error";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = {
   children: React.ReactNode;
-  state: ErrorState;
+  state: BaseState;
   onRefresh: () => void;
 };
 

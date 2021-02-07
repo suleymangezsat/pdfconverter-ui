@@ -7,23 +7,32 @@ import { TextDialog } from "../../common/TextDialog";
 import { Loader } from "../../common/Loader";
 import { FileListItem } from "../../common/FileListItem";
 import { ConvertingTask } from "../../../store/state/converting";
+import { useInterval } from "../../../hooks/useInterval";
 
 export const UploadedFileList = (): ReactElement => {
   const [selectedFile, setSelectedFile] = useState<ConvertingTask>();
-  const { fetchAll } = useConvertingActions();
+  const { fetchAll, update } = useConvertingActions();
   const convertingState = useConvertingState();
 
-  const handleRefresh = () => {
-    fetchAll();
-  };
+  useInterval(
+    () => {
+      const ids = convertingState.data
+        .filter((task) => task.status === "INIT")
+        .map((filtered) => filtered.id);
+      ids.length > 0 && update(ids);
+    },
+    1000,
+    convertingState.data.filter((task) => task.status === "INIT").length > 0
+  );
+
   useEffect(() => {
-    debugger;
-    fetchAll();
-  }, []);
+    !convertingState.initialized && fetchAll();
+  }, [convertingState.initialized, fetchAll]);
+
   return (
     <>
       <Typography variant="h6">List of Files</Typography>
-      <Loader state={convertingState} onRefresh={handleRefresh}>
+      <Loader state={convertingState} onRefresh={fetchAll}>
         <List>
           {convertingState?.data?.map((fileTask, index) => (
             <FileListItem

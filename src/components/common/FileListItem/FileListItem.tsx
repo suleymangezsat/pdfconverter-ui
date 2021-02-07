@@ -66,14 +66,14 @@ export const FileListItem = memo(
                 )}
               </Box>
               <Box>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  className={classes.inline}
-                  color="textSecondary"
-                >
+                <Typography variant="body2" color="textSecondary">
                   {`Status : ${status}`}
                 </Typography>
+                {message && (
+                  <Typography variant="body2" color="textSecondary">
+                    {`Reason : ${message}`}
+                  </Typography>
+                )}
               </Box>
             </>
           }

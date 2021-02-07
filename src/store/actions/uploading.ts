@@ -1,41 +1,44 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { useMemo } from "react";
+import { Dispatch, bindActionCreators } from "redux";
 import fileAPI from "../../services/API/FileAPI";
-import {
-  FileUploadResponse,
-  Error,
-} from "../../models/responses/FileUploadResponse";
+import { FileUploadResponse } from "../../models/responses/FileUploadResponse";
 import { UploadingFile } from "../state/uploading";
 import { RootState } from "../state";
+import { ConvertingActions } from "./converting";
+import { mapResponseToState as mapResponseToUploadingState } from "../mappers/uploading";
+import { mapResponseToState as mapResponseToConvertingState } from "../mappers/converting";
 
-export const uploadFile = createAsyncThunk<
+const uploadFile = createAsyncThunk<
   DictionaryOf<UploadingFile>,
   File[],
   { state: RootState }
 >(
   "uploading/upload",
-  async (files: File[], { getState }): Promise<DictionaryOf<UploadingFile>> => {
-    debugger;
+  async (
+    files: File[],
+    { getState, dispatch }
+  ): Promise<DictionaryOf<UploadingFile>> => {
     const response: FileUploadResponse = await fileAPI.upload(files);
-    return mapToPayload(getState(), response.errors);
+    response.data.length > 0 &&
+      dispatch(
+        ConvertingActions.add(
+          response.data.map((item) => mapResponseToConvertingState(item))
+        )
+      );
+    return mapResponseToUploadingState(getState().uploading, response.errors);
   }
 );
 
-export const addFiles = createAction<File[]>("uploading/add");
-export const deleteFile = createAction<string>("uploading/delete");
+const addFiles = createAction<File[]>("uploading/add");
+const deleteFile = createAction<string>("uploading/delete");
 
-const mapToPayload = (
-  state: RootState,
-  errors: Error[]
-): DictionaryOf<UploadingFile> => {
-  debugger;
-  let payload: DictionaryOf<UploadingFile> = {};
-  errors.forEach((error) => {
-    payload[error.originalFile.name] = {
-      ...state.uploading.data[error.originalFile.name],
-      hasError: true,
-      errorMessages: error.errorMessages,
-    };
-  });
-  console.log("payload : " + JSON.stringify(payload));
-  return payload;
+export const UploadingActions = { uploadFile, addFiles, deleteFile };
+export type BoundUploadingActions = typeof UploadingActions;
+export const useBoundUploadingActions = (dispatch: Dispatch) => {
+  const { ...actions } = UploadingActions;
+  return useMemo(() => bindActionCreators(actions as any, dispatch), [
+    actions,
+    dispatch,
+  ]) as BoundUploadingActions;
 };

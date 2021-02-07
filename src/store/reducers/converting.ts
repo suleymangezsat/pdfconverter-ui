@@ -1,31 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ConvertingActions } from "../actions";
+import { ConvertingActions } from "../actions/converting";
 import { ConvertingState } from "../state/converting";
 
 const initialState: ConvertingState = {
   data: [],
+  initialized: false,
   loading: false,
-  error: null,
+  error: false,
 };
 
 const convertingSlice = createSlice({
   name: "converting",
   initialState,
-  reducers: {},
+  reducers: {
+    add(state, action) {
+      state.data = action.payload.concat(state.data);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(ConvertingActions.fetchAll.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loading = false;
-      state.error = null;
+      state.error = false;
+      state.initialized = true;
     });
     builder.addCase(ConvertingActions.fetchAll.pending, (state) => {
-      debugger;
       state.loading = true;
-      state.error = null;
+      state.error = false;
     });
     builder.addCase(ConvertingActions.fetchAll.rejected, (state) => {
       state.loading = false;
-      state.error = "error";
+      state.error = true;
     });
     builder.addCase(ConvertingActions.update.fulfilled, (state, action) => {
       state.data = state.data.map((existing) => {

@@ -14,26 +14,29 @@ export interface Props {
   onClose: () => void;
 }
 
-export const TextDialog = (props: Props): ReactElement => {
-  const [open, setOpen] = useState(props.isOpen);
+export const TextDialog = ({
+  title,
+  isOpen,
+  textPages,
+  onClose,
+}: Props): ReactElement => {
+  const [open, setOpen] = useState(isOpen);
 
   const handleClose = () => {
     setOpen(false);
-    props.onClose();
+    onClose();
   };
 
   useEffect(() => {
-    debugger;
-    if (props.isOpen) {
-      setOpen(true);
-    }
-  }, [props.isOpen]);
+    setOpen(isOpen);
+  }, [isOpen]);
+
   return (
     <Dialog open={open} onClose={handleClose} scroll="paper">
-      <DialogTitle>{props.title}</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers={true}>
         <DialogContentText component="div" tabIndex={-1}>
-          {props.textPages?.map((page, index) => (
+          {textPages?.map((page, index) => (
             <div key={index}>
               <Typography variant="h6" gutterBottom>
                 Page {index + 1}

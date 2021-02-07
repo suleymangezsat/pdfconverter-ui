@@ -15,15 +15,7 @@ const fileAPI = {
     return await api.get("/file/all");
   },
   async fetch(ids: string[]): Promise<GetFilesResponse> {
-    return await api.get(
-      `/file?${ids
-        .map((id) => {
-          return {
-            ids: id,
-          };
-        })
-        .join("&")}`
-    );
+    return await api.get(`/file?${ids.map((id) => `ids=${id}`).join("&")}`);
   },
 };
 

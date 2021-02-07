@@ -15,18 +15,14 @@ export const FileUploader = (): ReactElement => {
     files && files.length > 0 && addFiles(Array.from(files));
   };
 
-  const handleRemove = (name: string) => {
-    deleteFile(name);
-  };
-
-  const handleUpload = React.useCallback(() => {
+  const handleUpload = () => {
     if (selectedFiles && selectedFiles.length > 0) {
       const validFiles: File[] = selectedFiles
         .filter((selectedFile) => !selectedFile.hasError)
         .map((filtered) => filtered.file);
       validFiles && uploadFile(validFiles);
     }
-  }, [selectedFiles, uploadFile]);
+  };
   /**fileType="application/pdf" */
   return (
     <Box my={1}>
@@ -55,10 +51,11 @@ export const FileUploader = (): ReactElement => {
             size={selected.file.size}
             color={selected.hasError ? "error" : "inherit"}
             status={selected.hasError ? "Upload failed" : "Ready to upload"}
+            message={selected.errorMessages?.join("\n")}
           >
             <IconButton
               edge="end"
-              onClick={() => handleRemove(selected.file.name)}
+              onClick={() => deleteFile(selected.file.name)}
             >
               <DeleteIcon />
             </IconButton>

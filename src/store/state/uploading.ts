@@ -1,4 +1,4 @@
-import { Error } from "./index";
+import { BaseState } from "./index";
 
 export type UploadingFile = {
   file: File;
@@ -10,4 +10,4 @@ export type UploadingFileList = {
   data: DictionaryOf<UploadingFile>;
 };
 
-export type UploadingState = UploadingFileList & Error;
+export type UploadingState = UploadingFileList & BaseState;
