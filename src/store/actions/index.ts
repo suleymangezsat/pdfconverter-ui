@@ -1,15 +1,25 @@
 import { useMemo } from "react";
 import { Dispatch, bindActionCreators } from "redux";
 import * as ConvertingActions from "./converting";
+import * as UploadingActions from "./uploading";
 
-export type BindedConvertingActions = Omit<typeof ConvertingActions, "Type">;
+export type BoundUploadingActions = Omit<typeof UploadingActions, "Type">;
+export type BoundConvertingActions = Omit<typeof ConvertingActions, "Type">;
 
-export const useConvertingActions = (dispatch: Dispatch) => {
+export const useBoundUploadingActions = (dispatch: Dispatch) => {
+  const { ...actions } = UploadingActions;
+  return useMemo(() => bindActionCreators(actions as any, dispatch), [
+    actions,
+    dispatch,
+  ]) as BoundUploadingActions;
+};
+
+export const useBoundConvertingActions = (dispatch: Dispatch) => {
   const { ...actions } = ConvertingActions;
   return useMemo(() => bindActionCreators(actions as any, dispatch), [
     actions,
     dispatch,
-  ]) as BindedConvertingActions;
+  ]) as BoundConvertingActions;
 };
 
-export { ConvertingActions };
+export { UploadingActions, ConvertingActions };

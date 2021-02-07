@@ -5,8 +5,10 @@ export async function get<T>(path: string): Promise<T> {
   return data;
 }
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const baseAxios = axios.create({
-  baseURL: "http://localhost:8080/",
+  baseURL: apiUrl,
 });
 
 const api = (() => {

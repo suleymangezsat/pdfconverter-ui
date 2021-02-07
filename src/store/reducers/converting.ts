@@ -13,18 +13,25 @@ const convertingSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(ConvertingActions.upload.fulfilled, (state) => {
+    builder.addCase(ConvertingActions.fetchAll.fulfilled, (state, action) => {
+      state.data = action.payload;
       state.loading = false;
       state.error = null;
     });
-    builder.addCase(ConvertingActions.upload.pending, (state, action) => {
+    builder.addCase(ConvertingActions.fetchAll.pending, (state) => {
       debugger;
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(ConvertingActions.upload.rejected, (state, action) => {
+    builder.addCase(ConvertingActions.fetchAll.rejected, (state) => {
       state.loading = false;
       state.error = "error";
+    });
+    builder.addCase(ConvertingActions.update.fulfilled, (state, action) => {
+      state.data = state.data.map((existing) => {
+        let updated = action.payload.find((item) => item.id === existing.id);
+        return updated ? { ...existing, ...updated } : existing;
+      });
     });
   },
 });

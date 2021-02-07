@@ -1,45 +1,70 @@
-import { Button } from "@material-ui/core";
-import React, { useState } from "react";
-import * as ConvertingActions from "../../../store/actions/converting";
+import { Box, Button, Grid, IconButton, List } from "@material-ui/core";
+import React, { ReactElement } from "react";
 import { SelectFileButton } from "../../common/SelectFileButton/SelectFileButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { FileListItem } from "../../common/FileListItem";
+import { useUploadingActions } from "../../../hooks/useUploadingActions";
+import { useUploadingState } from "../../../hooks/useUploadingState";
 
-export interface Props {
-  upload: typeof ConvertingActions.upload;
-}
+export const FileUploader = (): ReactElement => {
+  const { uploadFile, addFiles, deleteFile } = useUploadingActions();
+  const uploadingState = useUploadingState();
+  const selectedFiles = Object.values(uploadingState.data);
 
-export const FileUploader = ({ upload }: Props): JSX.Element => {
-  const [selectedFiles, setSelectedFiles] = useState<FileList>();
-  const selectFile = React.useCallback(
-    (files: FileList | null) => {
-      if (files) {
-        setSelectedFiles(files);
-      }
-    },
-    [setSelectedFiles]
-  );
-  const uploadFile = React.useCallback(() => {
+  const handleSelect = (files: FileList | null) => {
+    files && files.length > 0 && addFiles(Array.from(files));
+  };
+
+  const handleRemove = (name: string) => {
+    deleteFile(name);
+  };
+
+  const handleUpload = React.useCallback(() => {
     if (selectedFiles && selectedFiles.length > 0) {
-      upload({
-        file: selectedFiles[0],
-      });
+      const validFiles: File[] = selectedFiles
+        .filter((selectedFile) => !selectedFile.hasError)
+        .map((filtered) => filtered.file);
+      validFiles && uploadFile(validFiles);
     }
-  }, [selectedFiles, upload]);
+  }, [selectedFiles, uploadFile]);
+  /**fileType="application/pdf" */
   return (
-    <>
-      <SelectFileButton onSelect={selectFile}>Choose File</SelectFileButton>
-      <div className="file-name">
-        {selectedFiles && Array.from(selectedFiles).map((file) => file.name)}
-      </div>
-      <Button
-        className="btn-upload"
-        color="primary"
-        variant="contained"
-        component="span"
-        disabled={!selectedFiles}
-        onClick={() => uploadFile()}
+    <Box my={1}>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
       >
-        Upload
-      </Button>
-    </>
+        <SelectFileButton onSelect={handleSelect}>Choose File</SelectFileButton>
+        <Button
+          color="primary"
+          variant="contained"
+          component="span"
+          disabled={selectedFiles.length === 0}
+          onClick={() => handleUpload()}
+        >
+          Upload
+        </Button>
+      </Grid>
+      <List>
+        {selectedFiles?.map((selected, index) => (
+          <FileListItem
+            key={index}
+            name={selected.file.name}
+            size={selected.file.size}
+            color={selected.hasError ? "error" : "inherit"}
+            status={selected.hasError ? "Upload failed" : "Ready to upload"}
+          >
+            <IconButton
+              edge="end"
+              onClick={() => handleRemove(selected.file.name)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </FileListItem>
+        ))}
+      </List>
+    </Box>
   );
 };

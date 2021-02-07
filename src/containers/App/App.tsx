@@ -1,29 +1,26 @@
-import { Container, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useConvertingActions } from "../../store/actions";
-import { FileUploader } from "../../components/features/FileUploader/FileUploader";
+import { FileUploader } from "../../components/features/FileUploader/";
+import { UploadedFileList } from "../../components/features/UploadedFileList/";
 
 import "./App.css";
-import { RootState } from "../../store/state";
 
-export const App: React.FunctionComponent = (props) => {
-  const dispatch = useDispatch();
-  const convertingActions = useConvertingActions(dispatch);
-  const { convertingTasks } = useSelector((state: RootState) => {
-    return {
-      convertingTasks: state.converting.data,
-    };
-  });
-
+export const App: React.FunctionComponent = () => {
   return (
     <Container maxWidth="sm">
-      <div className="mg20">
-        <Typography variant="h5">textkernel</Typography>
-        <Typography variant="h6">PDF File Uploader</Typography>
-      </div>
+      <Grid container justify="center">
+        <Box mt={4} mb={3}>
+          <Typography variant="h5" align="center">
+            textkernel
+          </Typography>
+          <Typography variant="h6" align="center">
+            PDF File Converter
+          </Typography>
+        </Box>
+      </Grid>
 
-      <FileUploader upload={convertingActions.upload} />
+      <FileUploader />
+      <UploadedFileList />
     </Container>
   );
 };

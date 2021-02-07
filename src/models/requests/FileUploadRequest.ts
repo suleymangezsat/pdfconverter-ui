@@ -1,3 +1,3 @@
 export interface FileUploadRequest {
-  file: File;
+  files: File[];
 }
