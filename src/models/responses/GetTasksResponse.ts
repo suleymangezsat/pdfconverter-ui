@@ -1,11 +1,11 @@
-import { ConvertingTask } from "./FileUploadResponse";
+import { ConvertingTask } from "./UploadFilesResponse";
 
 type Payload = {
   readonly data: ConvertingTask[];
   readonly errors: Error[];
 };
 
-export class GetFilesResponse {
+export class GetTasksResponse {
   public readonly data: ConvertingTask[];
   public readonly errors: Error[];
 

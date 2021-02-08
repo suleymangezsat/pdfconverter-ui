@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import { memo } from "react";
-import { formatBytes } from "../../../services/Formatter";
+import { formatBytes } from "../../../services/@formatters";
 
 const useStyles = makeStyles(() =>
   createStyles({

@@ -7,7 +7,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import React, { memo, ReactElement } from "react";
-import { BaseState } from "../../../store/state";
+import { BaseState } from "../../../store/state/base";
 import { Error } from "../Error";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = {
   children: React.ReactNode;
-  state: BaseState;
+  state: Pick<BaseState<any>, "loading" | "error">;
   onRefresh: () => void;
 };
 

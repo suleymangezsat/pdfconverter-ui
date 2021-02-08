@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import { RootState } from "../state";
-import { convertingReducer } from "./converting";
-import { uploadingReducer } from "./uploading";
+import { tasksReducer } from "./tasks";
+import { filesReducer } from "./files";
+import { pagesReducer } from "./pages";
 
 export const rootReducer = combineReducers<RootState>({
-  converting: convertingReducer,
-  uploading: uploadingReducer,
+  tasks: tasksReducer,
+  files: filesReducer,
+  pages: pagesReducer,
 });

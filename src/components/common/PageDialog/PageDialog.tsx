@@ -14,7 +14,7 @@ export interface Props {
   onClose: () => void;
 }
 
-export const TextDialog = ({
+export const PageDialog = ({
   title,
   isOpen,
   textPages,

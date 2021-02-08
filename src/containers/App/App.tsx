@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Typography } from "@material-ui/core";
 import * as React from "react";
 import { FileUploader } from "../../components/features/FileUploader/";
-import { UploadedFileList } from "../../components/features/UploadedFileList/";
+import { TaskList } from "../../components/features/TaskList";
 
 import "./App.css";
 
@@ -20,7 +20,7 @@ export const App: React.FunctionComponent = () => {
       </Grid>
 
       <FileUploader />
-      <UploadedFileList />
+      <TaskList />
     </Container>
   );
 };

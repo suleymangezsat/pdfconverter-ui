@@ -1,13 +1,8 @@
-import { ConvertingState } from "./converting";
-import { UploadingState } from "./uploading";
-
+import { TasksState } from "./tasks";
+import { FilesState } from "./files";
+import { PagesState } from "./pages";
 export interface RootState {
-  converting: ConvertingState;
-  uploading: UploadingState;
+  tasks: TasksState;
+  files: FilesState;
+  pages: PagesState;
 }
-
-export type BaseState = {
-  loading: boolean;
-  error: boolean;
-  initialized?: boolean;
-};

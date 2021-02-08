@@ -1,9 +1,9 @@
-import { UploadingFile, UploadingState } from "../state/uploading";
-import { Error } from "../../models/responses/FileUploadResponse";
+import { UploadingFile, FilesState } from "../state/files";
+import { FileError } from "../../models/responses/UploadFilesResponse";
 
-export const mapResponseToState = (
-  state: UploadingState,
-  errors: Error[]
+export const mapToUploadingFileState = (
+  state: FilesState,
+  errors: FileError[]
 ): DictionaryOf<UploadingFile> => {
   let payload: DictionaryOf<UploadingFile> = {};
   errors.forEach((error) => {

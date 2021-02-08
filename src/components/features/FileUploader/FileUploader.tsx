@@ -3,15 +3,14 @@ import React, { ReactElement } from "react";
 import { SelectFileButton } from "../../common/SelectFileButton/SelectFileButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { FileListItem } from "../../common/FileListItem";
-import { useUploadingStore } from "../../../hooks/useUploadingStore";
+import { useFileStore } from "../../../hooks/useFileStore";
 
 export const FileUploader = (): ReactElement => {
-  const { uploadFile, addFiles, deleteFile, state } = useUploadingStore();
-  debugger;
-  const selectedFiles = Object.values(state.data);
+  const { uploadFile, addFiles, deleteFile, files } = useFileStore();
+  const selectedFiles = Object.values(files.data);
 
-  const handleSelect = (files: FileList | null) => {
-    files && files.length > 0 && addFiles(Array.from(files));
+  const handleSelect = (fileList: FileList | null) => {
+    fileList && fileList.length > 0 && addFiles(Array.from(fileList));
   };
 
   const handleUpload = () => {
@@ -22,7 +21,6 @@ export const FileUploader = (): ReactElement => {
       validFiles && uploadFile(validFiles);
     }
   };
-  /**fileType="application/pdf" */
   return (
     <Box my={1}>
       <Grid
@@ -31,7 +29,9 @@ export const FileUploader = (): ReactElement => {
         justify="space-between"
         alignItems="center"
       >
-        <SelectFileButton onSelect={handleSelect}>Choose File</SelectFileButton>
+        <SelectFileButton onSelect={handleSelect} fileType="application/pdf">
+          Choose File
+        </SelectFileButton>
         <Button
           color="primary"
           variant="contained"

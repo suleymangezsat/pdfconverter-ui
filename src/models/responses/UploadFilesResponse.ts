@@ -27,7 +27,7 @@ export interface ConvertingTask {
   createdAt: Date;
 }
 
-export interface Error {
+export interface FileError {
   originalFile: OriginalFile;
   errorMessages: string[];
 }
@@ -40,11 +40,11 @@ export interface OriginalFile {
 
 type Payload = {
   readonly data: ConvertingTask[];
-  readonly errors: Error[];
+  readonly errors: FileError[];
 };
-export class FileUploadResponse {
+export class UploadFilesResponse {
   public readonly data: ConvertingTask[];
-  public readonly errors: Error[];
+  public readonly errors: FileError[];
 
   constructor(payload: Payload) {
     this.data = payload.data;
