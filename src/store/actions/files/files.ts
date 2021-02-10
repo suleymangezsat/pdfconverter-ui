@@ -1,13 +1,13 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { Dispatch, bindActionCreators } from "redux";
-import fileAPI from "../../services/API/FileAPI";
-import { UploadFilesResponse } from "../../models/responses/UploadFilesResponse";
-import { UploadingFile } from "../state/files";
-import { RootState } from "../state";
-import { TaskActions } from "./tasks";
-import { mapToUploadingFileState } from "../mappers/files";
-import { mapToConvertingTaskState } from "../mappers/tasks";
+import fileAPI from "../../../services/API/FileAPI";
+import { UploadFilesResponse } from "../../../models/responses/UploadFilesResponse";
+import { UploadingFile } from "../../state/files";
+import { RootState } from "../../state";
+import { TaskActions } from "../tasks/tasks";
+import { mapToUploadingFileState } from "../../mappers/files";
+import { mapToConvertingTaskState } from "../../mappers/tasks";
 
 const uploadFile = createAsyncThunk<
   DictionaryOf<UploadingFile>,

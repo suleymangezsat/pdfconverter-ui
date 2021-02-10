@@ -7,7 +7,6 @@ import {
   Theme,
 } from "@material-ui/core";
 import React, { memo, ReactElement } from "react";
-import { BaseState } from "../../../store/state/base";
 import { Error } from "../Error";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,19 +19,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = {
   children: React.ReactNode;
-  state: Pick<BaseState<any>, "loading" | "error">;
+  loading: boolean;
+  error: boolean;
   onRefresh: () => void;
 };
 
 export const Loader = memo(
-  ({ children, state, onRefresh }: Props): ReactElement => {
+  ({ children, loading, error, onRefresh }: Props): ReactElement => {
     const classes = useStyles();
     let rendering;
     rendering =
-      state.error || state.loading ? (
+      error || loading ? (
         <Grid container justify="center" className={classes.root}>
-          {state.error && <Error onRefresh={() => onRefresh()}></Error>}
-          {state.loading && <CircularProgress />}
+          {error && <Error onRefresh={() => onRefresh()}></Error>}
+          {loading && <CircularProgress />}
         </Grid>
       ) : (
         children

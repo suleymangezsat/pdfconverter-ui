@@ -10,9 +10,7 @@ import { PageDialog } from "../../common/PageDialog";
 import { Loader } from "../../common/Loader";
 import { FileListItem } from "../../common/FileListItem";
 import { ConvertingTask } from "../../../store/state/tasks";
-import { useInterval } from "../../../hooks/useInterval";
-import { useTaskStore } from "../../../hooks/useTaskStore";
-import { usePageStore } from "../../../hooks/usePageStore";
+import { useInterval, useTaskStore, usePageStore } from "../../../hooks/";
 
 export const TaskList = (): ReactElement => {
   const [activeTaskId, setActiveTaskId] = useState<string>();
@@ -33,8 +31,7 @@ export const TaskList = (): ReactElement => {
         .map((filtered) => filtered.id);
       ids.length > 0 && fetchByIdList(ids);
     },
-    1000,
-    tasks.data.filter((task) => task.status === "INIT").length > 0
+    tasks.data.filter((task) => task.status === "INIT").length > 0 ? 1000 : null
   );
 
   useEffect(() => {
@@ -44,7 +41,7 @@ export const TaskList = (): ReactElement => {
   return (
     <>
       <Typography variant="h6">List of Files</Typography>
-      <Loader state={tasks} onRefresh={fetchAll}>
+      <Loader loading={tasks.loading} error={tasks.error} onRefresh={fetchAll}>
         <List>
           {tasks?.data?.map((fileTask, index) => (
             <FileListItem

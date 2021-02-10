@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FileActions } from "../actions/files";
+import { FileActions } from "../actions/files/";
 import { FilesState } from "../state/files";
 
 const initialState: FilesState = {

@@ -4,7 +4,7 @@ import React, { ChangeEvent, memo } from "react";
 type Props = {
   children: React.ReactNode;
   fileType?: string;
-  onSelect: (files: FileList | null) => void;
+  onSelect: (files: File[] | null) => void;
 };
 
 export const SelectFileButton = memo(
@@ -17,7 +17,7 @@ export const SelectFileButton = memo(
         accept={fileType}
         multiple={true}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          onSelect(e.target.files)
+          onSelect(e.target.files ? Array.from(e.target.files) : null)
         }
       />
       <Button variant="outlined" component="span">

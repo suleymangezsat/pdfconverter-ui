@@ -3,14 +3,14 @@ import React, { ReactElement } from "react";
 import { SelectFileButton } from "../../common/SelectFileButton/SelectFileButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { FileListItem } from "../../common/FileListItem";
-import { useFileStore } from "../../../hooks/useFileStore";
+import { useFileStore } from "../../../hooks/";
 
 export const FileUploader = (): ReactElement => {
   const { uploadFile, addFiles, deleteFile, files } = useFileStore();
   const selectedFiles = Object.values(files.data);
 
-  const handleSelect = (fileList: FileList | null) => {
-    fileList && fileList.length > 0 && addFiles(Array.from(fileList));
+  const handleSelect = (files: File[] | null) => {
+    files && files.length > 0 && addFiles(files);
   };
 
   const handleUpload = () => {

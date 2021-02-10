@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TaskActions } from "../actions/tasks";
+import { TaskActions } from "../actions/tasks/";
 import { ConvertingTask, TasksState } from "../state/tasks";
 
 const initialState: TasksState = {
@@ -27,6 +27,7 @@ const tasksSlice = createSlice({
     builder.addCase(TaskActions.fetchAll.pending, (state) => {
       state.loading = true;
       state.error = false;
+      state.initialized = true;
     });
     builder.addCase(TaskActions.fetchAll.rejected, (state) => {
       state.loading = false;

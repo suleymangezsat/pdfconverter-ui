@@ -21,6 +21,7 @@ const pagesSlice = createSlice({
       state[action.meta.arg] = {
         loading: true,
         error: false,
+        initialized: true,
       };
     });
     builder.addCase(PageActions.fetchById.rejected, (state, action) => {

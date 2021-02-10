@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/common/Error should render Error component correctly 1`] = `
+<Styled(MuiBox)
+  textAlign="center"
+>
+  <WithStyles(ForwardRef(Typography))>
+    Something went wrong
+  </WithStyles(ForwardRef(Typography))>
+  <Styled(MuiBox)
+    m={1}
+  >
+    <WithStyles(ForwardRef(Button))
+      onClick={[Function]}
+      variant="outlined"
+    >
+      Try Again
+    </WithStyles(ForwardRef(Button))>
+  </Styled(MuiBox)>
+</Styled(MuiBox)>
+`;

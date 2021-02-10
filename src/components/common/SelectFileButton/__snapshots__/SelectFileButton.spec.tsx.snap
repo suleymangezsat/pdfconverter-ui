@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/common/SelectFileButton should render SelectFileButton component correctly 1`] = `
+<label>
+  <input
+    accept="application/pdf"
+    multiple={true}
+    name="btn-upload"
+    onChange={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    type="file"
+  />
+  <WithStyles(ForwardRef(Button))
+    component="span"
+    variant="outlined"
+  >
+    <p>
+      Test Text
+    </p>
+  </WithStyles(ForwardRef(Button))>
+</label>
+`;

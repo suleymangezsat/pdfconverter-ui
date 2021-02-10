@@ -5,25 +5,11 @@ export enum Status {
   INIT = "INIT",
 }
 
-export enum ConvertingResultStatus {
-  CONVERTED_SUCCESS = "CONVERTED_SUCCESS",
-  CONVERTED_PARTIALLY = "CONVERTED_PARTIALLY",
-  CONVERTING_FAIL = "CONVERTING_FAIL",
-  CLIENT_FAIL = "CLIENT_FAIL",
-  UNKNOWN = "UNKNOWN",
-}
-export interface ConvertingResult {
-  textPages: string[];
-  status: ConvertingResultStatus;
-  errorMessages: string[];
-}
-
 export interface ConvertingTask {
   id: string;
   status: Status;
   message: string;
   originalFile: OriginalFile;
-  convertingResult: ConvertingResult;
   createdAt: Date;
 }
 

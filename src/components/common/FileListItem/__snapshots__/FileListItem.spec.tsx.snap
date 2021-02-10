@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/common/FileListItem should render FileListItem component properly 1`] = `
+<WithStyles(ForwardRef(ListItem))
+  divider={true}
+>
+  <WithStyles(ForwardRef(ListItemAvatar))>
+    <WithStyles(ForwardRef(Avatar))>
+      <Memo(ForwardRef(FolderIcon))
+        color="error"
+      />
+    </WithStyles(ForwardRef(Avatar))>
+  </WithStyles(ForwardRef(ListItemAvatar))>
+  <WithStyles(ForwardRef(ListItemText))
+    primary="filename.pdf"
+    secondary={
+      <React.Fragment>
+        <Styled(MuiBox)>
+          <WithStyles(ForwardRef(Typography))
+            className="makeStyles-inline-1"
+            color="textSecondary"
+            component="span"
+            variant="body2"
+          >
+            125 KB
+          </WithStyles(ForwardRef(Typography))>
+          <WithStyles(ForwardRef(Typography))
+            className="makeStyles-inline-1"
+            color="textSecondary"
+            component="span"
+            variant="body2"
+          >
+             · 00:00:00 GMT+0300 (GMT+03:00)
+          </WithStyles(ForwardRef(Typography))>
+        </Styled(MuiBox)>
+        <Styled(MuiBox)>
+          <WithStyles(ForwardRef(Typography))
+            color="textSecondary"
+            variant="body2"
+          >
+            Status : INIT
+          </WithStyles(ForwardRef(Typography))>
+          <WithStyles(ForwardRef(Typography))
+            color="textSecondary"
+            variant="body2"
+          >
+            Reason : An error occured.
+          </WithStyles(ForwardRef(Typography))>
+        </Styled(MuiBox)>
+      </React.Fragment>
+    }
+    secondaryTypographyProps={
+      Object {
+        "component": "div",
+      }
+    }
+  />
+  <WithStyles(ForwardRef(ListItemSecondaryAction))>
+    <div
+      data-testid="test"
+    >
+      Example
+    </div>
+  </WithStyles(ForwardRef(ListItemSecondaryAction))>
+</WithStyles(ForwardRef(ListItem))>
+`;

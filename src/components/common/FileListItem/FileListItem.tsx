@@ -43,6 +43,7 @@ export const FileListItem = memo(
         </ListItemAvatar>
         <ListItemText
           primary={name}
+          secondaryTypographyProps={{ component: "div" }}
           secondary={
             <>
               <Box>
