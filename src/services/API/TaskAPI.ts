@@ -2,6 +2,9 @@ import { GetTaskDetailResponse } from "../../models/responses/GetTaskDetailRespo
 import { GetTasksResponse } from "../../models/responses/GetTasksResponse";
 import Api from "./APIClient";
 
+/**
+ * @module TaskAPI Api wrapper that performs server side task operations
+ */
 export default class TaskAPI {
   public static async fetchAll(): Promise<GetTasksResponse> {
     return await Api.get<GetTasksResponse>("/file/all");

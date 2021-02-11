@@ -6,6 +6,9 @@ const baseAxios = axios.create({
   baseURL: apiUrl,
 });
 
+/**
+ * @module Api Http client that wraps axios
+ */
 export default class Api {
   public static async post<T>(
     path: string,
