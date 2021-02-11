@@ -1,4 +1,12 @@
-export const formatBytes = (bytes: number, decimals: number = 2) => {
+/**
+ * Formats given byte value to more readable size units
+ *
+ * @param bytes - Number representing the size in byte.
+ * @param decimals - Number separating bytes number part and the fractional part.
+ * @returns - the value of bytes with size unit.
+ */
+
+export const formatBytes = (bytes: number, decimals: number = 2): string => {
   if (bytes === 0) return "0 Bytes";
 
   const k = 1024;

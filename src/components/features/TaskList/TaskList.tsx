@@ -41,7 +41,12 @@ export const TaskList = (): ReactElement => {
   return (
     <>
       <Typography variant="h6">List of Files</Typography>
-      <Loader loading={tasks.loading} error={tasks.error} onRefresh={fetchAll}>
+      <Loader
+        loading={tasks.loading}
+        error={tasks.error}
+        empty={tasks.data.length === 0}
+        onRefresh={fetchAll}
+      >
         <List>
           {tasks?.data?.map((fileTask, index) => (
             <FileListItem

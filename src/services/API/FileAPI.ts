@@ -1,15 +1,13 @@
 import { UploadFilesResponse } from "../../models/responses/UploadFilesResponse";
-import api from "./APIClient";
+import Api from "./APIClient";
 
-const fileAPI = {
-  async upload(files: File[]): Promise<UploadFilesResponse> {
+export default class FileAPI {
+  public static async upload(files: File[]): Promise<UploadFilesResponse> {
     const formData = new FormData();
     files.forEach((file) => formData.append("file", file));
     const headers = {
       "Content-Type": "multipart/form-data",
     };
-    return await api.post("/file", formData, headers);
-  },
-};
-
-export default fileAPI;
+    return await Api.post<UploadFilesResponse>("/file", formData, headers);
+  }
+}

@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { Dispatch, bindActionCreators } from "redux";
-import fileAPI from "../../../services/API/FileAPI";
+import FileApi from "../../../services/API/FileAPI";
 import { UploadFilesResponse } from "../../../models/responses/UploadFilesResponse";
 import { UploadingFile } from "../../state/files";
 import { RootState } from "../../state";
@@ -19,7 +19,7 @@ const uploadFile = createAsyncThunk<
     files: File[],
     { getState, dispatch }
   ): Promise<DictionaryOf<UploadingFile>> => {
-    const response: UploadFilesResponse = await fileAPI.upload(files);
+    const response: UploadFilesResponse = await FileApi.upload(files);
     response.data.length > 0 &&
       dispatch(
         TaskActions.addTask(
